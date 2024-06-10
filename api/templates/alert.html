@@ -1,0 +1,10 @@
+{% set alert = alert() %}
+{% if alert %}
+    <span class="alert">{{ alert }}</span>
+{% endif %}
+<!-- {% if 'email' in session %}
+    <span class="alert">
+        You have to yet confirm your address ({{ session['email'] }})
+        If you can't find it, check your spam folder.
+    </span>
+{% endif %} -->

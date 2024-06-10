@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}owler / login{% endblock %}
+{% block head %}
+    <meta property="og:title" content="owler / login"/>
+    <meta name="description" content="owler is a social media inspired on old Twitter (2007) for staying in touch and keeping up with friends
+        no matter where you are or what you’re doing. Invite your friends to owler and decide how connected you want you
+        to be.">
+    <meta property="og:type" content="website"/>
+    <meta property="og:description" content="owler / login"/>
+{% endblock %}
+{% block container_args %} class="subpage"{% endblock %}
+{% block body_args %} id="front"{% endblock %}
+{% block wrapper_content %}
+    <h2>Sign in to owler</h2>
+    {% include 'alert.html' %}
+    <form action="" method="post" name="f">
+        {{ login_form.csrf_token }}
+        <fieldset>
+            <table cellspacing="0">
+                <tr>
+                    <th>
+                        {{ login_form.username_or_email.label }}
+                    </th>
+                    <td>
+                        {{ login_form.username_or_email() }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ login_form.password.label }}
+                    </th>
+                    <td>
+                        {{ login_form.password() }}
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        {{ login_form.remember_me() }}
+                        {{ login_form.remember_me.label(class="inline") }}
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        {{ login_form.submit(class="button") }}
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+{% endblock %}
+
+{% block side %}
+    <div id="side">
+        {% include 'side_notify.html' %}
+    </div>
+{% endblock %}

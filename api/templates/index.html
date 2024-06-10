@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}owler - What are you doing?{% endblock %}
+{% block head %}
+    <meta property="og:title" content="owler - What are you doing?"/>
+    <meta name="description" content="owler is a social media inspired on old Twitter (2007) for staying in touch and keeping up with friends
+        no matter where you are or what you’re doing. Invite your friends to owler and decide how connected you want you
+        to be.">
+    <meta property="og:type" content="website"/>
+    <meta property="og:description" content="owler - What are you doing?"/>
+{% endblock %}
+{% block container_args %} class="subpage"{% endblock %}
+{% block body_args %} id="front"{% endblock %}
+{% block wrapper_content %}
+    <h2>A global community of friends and strangers answering one simple question: <em>What are you doing?</em> Answer
+        right here on the web! </h2>
+    <br>
+    <p>
+        owler is a social media inspired on old Twitter (2007) for staying in touch and keeping up with friends
+        no matter where you are or what you’re doing. Invite your friends to owler and decide how connected you want you
+        to be :)
+    </p>
+    {#    <p>#}
+    {#        <a href="/create">Create your account</a> right now and enjoy :)#}
+    {#    </p>#}
+    {#    <h3>Look at what <a href="/public_timeline">these people</a> are doing right now&hellip; </h3>#}
+    {#    {% include 'posts.html' %}#}
+{% endblock %}
+
+{% block side %}
+    <div id="side">
+        {% include 'side_sign_in.html' %}
+        {% include 'side_notify.html' %}
+        {% include 'side_featured.html' %}
+    </div>
+{% endblock %}

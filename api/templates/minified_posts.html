@@ -1,0 +1,22 @@
+{% if posts %}
+    <table class="doing" id="timeline" cellspacing="0">
+        <tbody>
+        {% for post in posts %}
+            {% if not loop.first %}
+                <tr class="{{ 'even' if loop.index is odd else 'odd' }}">
+
+                    <td>
+                        {{ post['content']|to_html|safe }}
+                        <span class="meta">
+                                        <a href="/{{ post['screen_name'] }}/statuses/{{ post._id }}">{{ date_to_text(post.timestamp) }}</a> from {{ post['origin'] }}
+                            {% if me() %}
+                                {% include 'actions.html' %}
+                            {% endif %}
+                                    </span>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

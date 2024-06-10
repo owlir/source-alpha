@@ -1,0 +1,12 @@
+<ul class="featured">
+    <li>
+        <strong>actions</strong>
+    </li>
+    <li>
+        {% if im_following(user._id) %}
+            <a href="/{{ user.screen_name }}/follow">unfollow</a> {{ user.screen_name }}
+        {% else %}
+            <a href="/{{ user.screen_name }}/follow">follow</a> {{ user.screen_name }}
+        {% endif %}
+    </li>
+</ul>

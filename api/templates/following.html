@@ -1,0 +1,13 @@
+{% if following %}
+    <div id="friends">
+        {% for u in following %}
+            {% if user and u._id != user._id %}
+                <a href="/{{ u.screen_name }}" rel="contact" title="{{ u.name }}">
+                    <img alt="{{ u.name }}" height="24"
+                         src="{{ u['profile_image_https'] if u['profile_image_https'] else '/static/images/default_profile_image_normal.gif' }}"
+                         width="24"/>
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

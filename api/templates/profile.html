@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block title %}owler / {{ user.screen_name }}{% endblock %}
+{% block head %}
+    <meta property="og:title" content="owler / {{ user.screen_name }}"/>
+    <meta property="og:image"
+          content="{{ user['profile_image_https'] if user['profile_image_https'] else '/static/images/default_profile_image_normal.gif' }}"/>
+
+    <meta name="description" content="{{ user.bio }}">
+    <meta property="og:type" content="blog"/>
+    <meta property="og:description" content="{{ user.bio }}"/>
+{% endblock %}
+{% block container_args %}{% endblock %}
+{% block body_args %} class="account" id="profile"{% endblock %}
+{% block wrapper_content %}
+    <h2 class="thumb">
+        <a href="/{{ user.screen_name }}">
+            {% if user.profile_image_https %}
+                <img alt="{{ user.screen_name }} pic" border="0" src="{{ user.profile_image_https }}" valign="middle"/>
+            {% elif profile_image_http %}
+                <img alt="{{ user.screen_name }} pic" border="0" src="{{ user.profile_image_http }}" valign="middle"/>
+            {% else %}
+                <img alt="{{ user.screen_name }} pic" border="0"
+                     src="/static/images/default_profile_image_normal.gif"
+                     valign="middle"/>
+            {% endif %}
+        </a> {{ user.screen_name }}
+    </h2>
+
+    {% if user.protected and (not me() or user._id != me()._id) %}
+        <div class="desc">
+            <p>
+                I'm only giving updates to friends.
+            </p>
+        </div>
+
+    {% elif posts and posts[0] %}
+        {% if tab_previous %}
+            <div class="desc">
+                <p>
+                    {{ posts[0].content }}
+                </p>
+                <div class="metadata">
+                    <span class="meta"><a
+                            href="/{{ user['screen_name'] }}/statuses/{{ posts[0]._id }}">{{ date_to_text(posts[0].timestamp) }}</a> from {{ posts[0]['origin'] }}
+                        {% if me() %}
+                            {% set post = posts[0] %}
+                            {% include 'actions.html' %}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        {% endif %}
+        {% if posts|length > 1 %}
+            <ul class="tabMenu">
+                {% if tab_previous %}
+                    <li>
+                        <a href="/{{ user.screen_name }}/favorites">Favorites</a>
+                    </li>
+                    <li class="active">
+                        <a href="/{{ user.screen_name }}">Previous</a>
+                    </li>
+                {% else %}
+                    <li class="active">
+                        <a href="/{{ user.screen_name }}/favorites">Favorites</a>
+                    </li>
+                    <li>
+                        <a href="/{{ user.screen_name }}">Previous</a>
+                    </li>
+                {% endif %}
+            </ul>
+            {% if tab_previous %}
+                <div class="tab">
+                    {% include 'minified_posts.html' %}
+                </div>
+            {% else %}
+                {% set disable_actions = True %}
+                <div class="tab">
+                    {% include 'posts.html' %}
+                </div>
+            {% endif %}
+        {% elif not tab_previous %}
+            {% set disable_actions = True %}
+            <ul class="tabMenu">
+                <li class="active">
+                    <a href="/{{ user.screen_name }}/favorites">Favorites</a>
+                </li>
+                <li>
+                    <a href="/{{ user.screen_name }}">Previous</a>
+                </li>
+            </ul>
+            <div class="tab">
+                {% include 'posts.html' %}
+            </div>
+        {% endif %}
+
+    {% else %}
+        {% if tab_previous %}
+            <div class="desc">
+                <p>
+                    <i>Haven't updated yet!</i>
+                </p>
+            </div>
+        {% else %}
+            <ul class="tabMenu">
+                <li class="active">
+                    <a href="/{{ user.screen_name }}/favorites">Favorites</a>
+                </li>
+                <li>
+                    <a href="/{{ user.screen_name }}">Previous</a>
+                </li>
+            </ul>
+            {% set disable_actions = True %}
+            <div class="tab">
+                No favorites found!
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block side %}
+    <div id="side">
+        {% if not user.protected or (me and user._id == me()._id) %}
+            <div class="msg"> About <strong>{{ user.screen_name }}</strong>
+            </div>
+            <ul class="about">
+                <li>Name: {{ user.name }}</li>
+                <li>Bio:
+                    <olb>{{ user.bio }}</olb>
+                </li>
+                {% if user.location %}
+                    <li>Location: {{ user.location }}</li>
+                {% endif %}
+                {% if user.website %}
+                    <li>Web: <a href="{{ user.website }}" rel="me">{{ user.website }}</a>
+                {% endif %}
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="/{{ user.screen_name }}/favorites">{{ user.favorites_count }} Favorites</a>
+                </li>
+                <li>{{ user.following_count - 1 }} Following</li>
+                <li>{{ user.followers_count }} Followers</li>
+                <li>{{ user.updates_count }} Updates</li>
+            </ul>
+        {% endif %}
+        {% if not user.protected %}
+            {% include 'following.html' %}
+        {% endif %}
+        {% if not "id" in session %}
+            {% include 'side_notify.html' %}
+        {% else %}
+            {% if not user._id == me()._id %}
+                {% include 'side_actions.html' %}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}
+{% block navigation %}
+    {% if me() %}
+        {% include 'user_navigation.html' %}
+
+    {% endif %}
+{% endblock %}

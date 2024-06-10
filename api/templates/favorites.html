@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block head %}
+    <meta property="og:title" content="{{ user.name }}’s Favorites"/>
+    <meta name="description" content="@{{ user.screen_name }} on owler">
+    <meta property="og:type" content="website"/>
+    <meta property="og:description" content="@{{ user.screen_name }} on owler"/>
+{% endblock %}
+{% block container_args %} class="subpage"{% endblock %}
+{% block body_args %} class="favourings" id="favourings"{% endblock %}
+{% block wrapper_content %}
+    <h2>{{ user.name }}’s Favorites</h2>
+    {% include 'minified_posts.html' %}
+{% endblock %}
+
+{% block side %}
+    <div id="side">
+        <div class="msg"> About <strong>{{ user.screen_name }}</strong>
+        </div>
+        <ul class="about">
+            <li>Name: {{ user.name }}</li>
+            <li>Bio:
+                <olb>{{ user.bio }}</olb>
+            </li>
+            <li>Location: {{ user.location }}</li>
+            <li>Web: <a href="{{ user.website }}" rel="me">{{ user.website }}</a>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <a href="/{{ user.screen_name }}/favorites">0 Favorites</a>
+            </li>
+            <li>0 Friends</li>
+            <li>0 Followers</li>
+            <li>0 Updates</li>
+        </ul>
+        {% if not "id" in session %}
+            {% include 'side_notify.html' %}
+        {% endif %}
+    </div>
+{% endblock %}
+{% block navigation %}
+    {% if "id" in session %}
+        {% include 'user_navigation.html' %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}owler / Public Timeline{% endblock %}
+{% block container_args %} class="subpage"{% endblock %}
+{% block body_args %} class="status" id="public_timeline"{% endblock %}
+{% block wrapper_content %}
+    <h2>Last 100 Public Updates</h2>
+
+    {% include 'posts.html' %}
+
+{% endblock %}
+
+{% block side %}
+    <div id="side">
+        <div class="msg"> owler <strong>Public Timeline</strong>
+        </div>
+        <ul>
+            <li><a href="/favorites/top10" rel="favorites">{{ favorites_count }} Favorites</a></li>
+            <li>{{ users_count }} Users</li>
+            <li>{{ updates_count }} Updates</li>
+        </ul>
+        {% include 'side_featured.html' %}
+    </div>
+{% endblock %}

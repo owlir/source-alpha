@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="en-us" />
+        {% if title %}
+		    <title>{{ title }}</title>
+        {% else %}
+            <title>owler: upgrading!</title>
+        {% endif %}
+    <link href="/static/styles.css" media="screen, projection" rel="Stylesheet" type="text/css"/>
+	</head>
+  	<style type="text/css">
+    a{text-decoration:none;color:blue;}
+    a img{border:0;}
+
+    body {
+        background: #9AE4E8 url(/static/images/bg.gif) no-repeat fixed left top;
+        color: #333;
+        font: 1.1em Helvetica, Arial, sans-serif;
+        margin: 10px 30% 10px 30%;
+    }
+    ul{list-style:square;padding-left:20px;}
+  	</style>
+  </head>
+  <body>
+
+    <center>
+      <br><br>
+        <a href="/"><img alt="owler.cloud" height="49" src="/static/images/owlerlq.png" width="150"/></a>
+      <br><br>
+        <img src="/static/images/arr2.gif">
+      <div style="background:#fff;padding:10px;">
+          {% if subtitle %}
+          {{ subtitle }}
+          {% else %}
+            Bring that beat back!
+          {% endif %}
+      {% if alt %}
+          <p><img src="/static/images/not_found.gif"></p>
+      {% else %}
+          <p><img src="/static/images/bird.gif"></p>
+      {% endif %}
+        <span style="font-size:0.6em">
+            {% if description %}
+                {{ description }}
+            {% else %}
+                You'll be able to access owler again in just a second. We're just
+                shuffling a few things around. Just hang tight or <a href="/">click here</a> to see if owler is once
+                again ready to rock.
+            {% endif %}
+        </span><br>
+      </div>
+    </center>
+
+</body></html>

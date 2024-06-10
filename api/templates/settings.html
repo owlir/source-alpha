@@ -1,0 +1,317 @@
+{% extends 'base.html' %}
+{% block title %}owler / settings{% endblock %}
+{% block container_args %}{% endblock %}
+{% block body_args %} class="status" id="public_timeline"{% endblock %}
+{% block wrapper_content %}
+    <h2 class="thumb">
+        <a href="/{{ me().screen_name }}">
+            {% if me().profile_image_https %}
+                <img alt="{{ me().screen_name }} pic" border="0" src="{{ me().profile_image_https }}" valign="middle"/>
+            {% elif profile_image_http %}
+                <img alt="{{ me().screen_name }} pic" border="0" src="{{ me().profile_image_http }}" valign="middle"/>
+            {% else %}
+                <img alt="{{ me().screen_name }} pic" border="0"
+                     src="/static/images/default_profile_image_normal.gif"
+                     valign="middle"/>
+            {% endif %}
+        </a> {{ me().screen_name }}
+    </h2>
+
+    <ul class="tabMenu">
+        {% if page == "account_settings" %}
+            <li class="active">
+                <a href="/settings/account">Account</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="/settings/account">Account</a>
+            </li>
+        {% endif %}
+        {% if page == "password_settings" %}
+            <li class="active">
+                <a href="/settings/password">Password</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="/settings/password">Password</a>
+            </li>
+        {% endif %}
+        {% if page == "picture_settings" %}
+            <li class="active">
+                <a href="/settings/picture">Picture</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="/settings/picture">Picture</a>
+            </li>
+        {% endif %}
+        {% if page == "design_settings" %}
+            <li class="active">
+                <a href="/settings/design">Design</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="/settings/design">Design</a>
+            </li>
+        {% endif %}
+        {% if page == "theme_settings" %}
+            <li class="active">
+                <a href="/settings/theme">Theme</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="/settings/theme">Theme</a>
+            </li>
+        {% endif %}
+    </ul>
+    <div class="tab">
+        {% include 'alert.html' %}
+
+        <form action="" enctype="multipart/form-data" method="post" name="f">
+            {{ login_form.csrf_token }}
+            <fieldset>
+                <table cellspacing="0">
+
+                    {% if page == "account_settings" %}
+                        <tr>
+                            <th>
+                                {{ account_settings_form.name.label }}
+                            </th>
+                            <td>
+                                {{ account_settings_form.name() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ account_settings_form.screen_name.label }}
+                            </th>
+                            <td>
+                                {{ account_settings_form.screen_name() }}
+                                <small>For signing in to owler (no spaces allowed!)</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ account_settings_form.bio.label }}
+                            </th>
+                            <td>
+                                <label>
+                                    {{ account_settings_form.bio(class_="textarea") }}
+                                </label>
+                                <small>Max 280 characters</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ account_settings_form.location.label }}
+                            </th>
+                            <td>
+                                {{ account_settings_form.location() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ account_settings_form.website.label }}
+                            </th>
+                            <td>
+                                {{ account_settings_form.website() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ account_settings_form.email.label }}
+                            </th>
+                            <td>
+                                {{ account_settings_form.email() }}
+                                <small>In case you forget your password! Choose a valid real email</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ account_settings_form.lang.label }}
+                            </th>
+                            <td>
+                                {{ account_settings_form.lang() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ account_settings_form.time_zone.label }}
+                            </th>
+                            <td>
+                                {{ account_settings_form.time_zone() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                {{ account_settings_form.protected() }}
+                                {{ account_settings_form.protected.label }}
+                                <p>
+                                    <small>Only let people whom I accept as friends read my updates. If this is checked,
+                                        you
+                                        WILL
+                                        NOT be on the public timeline</small>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                {{ account_settings_form.submit(class_="button", id_="button") }}
+                            </td>
+                        </tr>
+                    {% elif page == "password_settings" %}
+                        <tr>
+                            <th>
+                                {{ password_settings_form.old_password.label }}
+                            </th>
+                            <td>
+                                {{ password_settings_form.old_password() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ password_settings_form.password.label }}
+                            </th>
+                            <td>
+                                {{ password_settings_form.password() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ password_settings_form.password_confirmation.label }}
+                            </th>
+                            <td>
+                                {{ password_settings_form.password_confirmation() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                {{ password_settings_form.submit(class_="button", id_="button") }}
+                            </td>
+                        </tr>
+                    {% elif page == "picture_settings" %}
+                        <tr>
+                            <th>
+                                {{ picture_settings_form.profile_image.label }}
+                            </th>
+                            <td>
+                                {{ picture_settings_form.profile_image() }}
+                                <small>Maximum size: {{ max_content_length }} MB</small>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                {{ picture_settings_form.submit(class_="button", id_="button") }}
+                            </td>
+                        </tr>
+                    {% elif page == "design_settings" %}
+
+                        <tr>
+                            <th>
+                                {{ design_form.text_color.label }}
+                            </th>
+                            <td>
+                                {{ design_form.text_color() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ design_form.link_color.label }}
+                            </th>
+                            <td>
+                                {{ design_form.link_color() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ design_form.sidebar_border_color.label }}
+                            </th>
+                            <td>
+                                {{ design_form.sidebar_border_color() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ design_form.sidebar_color.label }}
+                            </th>
+                            <td>
+                                {{ design_form.sidebar_color() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ design_form.background_color.label }}
+                            </th>
+                            <td>
+                                {{ design_form.background_color() }}
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ design_form.background_image.label }}
+                            </th>
+                            <td>
+                                {{ design_form.background_image() }}
+                                <small>Maximum size: {{ max_content_length }} MB</small>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                {{ design_form.submit(class_="button", id_="button") }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+
+                            </th>
+                            <td>
+                                This is a feature that will be added in the future!
+                            </td>
+                        </tr>
+                    {% elif page == "theme_settings" %}
+                        <tr>
+                            <th>
+                                {{ theme_form.theme.label }}
+                            </th>
+                            <td>
+                                {{ theme_form.theme() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                {{ theme_form.submit(class_="button", id_="button") }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+
+                            </th>
+                            <td>
+                                This is a feature that will be added in the future!
+                            </td>
+                        </tr>
+                    {% endif %}
+                </table>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}
+
+{% block side %}
+    {% include 'side_profile.html' %}
+{% endblock %}
+
+{% block navigation %}
+    {% if me() %}
+        {% include 'user_navigation.html' %}
+    {% endif %}
+{% endblock %}

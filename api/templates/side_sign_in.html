@@ -1,0 +1,23 @@
+<div class="msg">
+    <h3>Please Sign In!</h3>
+</div>
+<form action="/login" class="signin" method="post" name="f">
+    {{ login_form.csrf_token }}
+    <fieldset>
+        <div>
+            {{ login_form.username_or_email.label }}
+            {{ login_form.username_or_email(id_='email') }}
+        </div>
+        <div>
+            {{ login_form.password.label }}
+            {{ login_form.password(id_='pass') }}
+        </div>
+        <div>
+            {{ login_form.remember_me() }}
+            {{ login_form.remember_me.label() }}
+        </div>
+        <div>
+            {{ login_form.submit() }}
+        </div>
+    </fieldset>
+</form>

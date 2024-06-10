@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% block title %}owler{% endblock %}
+{% block head %}
+    <meta property="og:title" content="owler / create account"/>
+    <meta name="description" content="let's get started at owler :)">
+    <meta property="og:type" content="website"/>
+    <meta property="og:description" content="let's get started at owler :)"/>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback"
+            defer></script>
+{% endblock %}
+
+{% block container_args %} class="subpage"{% endblock %}
+{% block body_args %} id="front"{% endblock %}
+{% block wrapper_content %}
+    <h2>Create a Free owler Account</h2>
+    <p>
+        {% include 'alert.html' %}
+    </p>
+    <form action="" enctype="multipart/form-data" method="post" name="f">
+        {{ registration_form.csrf_token }}
+        <fieldset>
+            <table cellspacing="0">
+                <tr>
+                    <th>
+                        {{ registration_form.name.label }}
+                    </th>
+                    <td>
+                        {{ registration_form.name() }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ registration_form.screen_name.label }}
+                    </th>
+                    <td>
+                        {{ registration_form.screen_name() }}
+                        <small>For signing in to owler (no spaces allowed!)</small>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ registration_form.password.label }}
+                    </th>
+                    <td>
+                        {{ registration_form.password() }}
+                        <small>Six characters or more (be tricky!)</small>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ registration_form.password_confirmation.label }}
+                    </th>
+                    <td>
+                        {{ registration_form.password_confirmation() }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ registration_form.email.label }}
+                    </th>
+                    <td>
+                        {{ registration_form.email() }}
+                        <small>In case you forget your password! Choose a valid real email</small>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ registration_form.time_zone.label }}
+                    </th>
+                    <td>
+                        {{ registration_form.time_zone() }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ registration_form.profile_image.label }}
+                    </th>
+                    <td>
+                        {{ registration_form.profile_image() }}
+                        <p>
+                            <small>Minimum size 48x48 pixels (jpg, gif, png)</small>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                    </th>
+                    <td>
+                        {{ registration_form.protected() }}
+                        {{ registration_form.protected.label }}
+                        <p>
+                            <small>Only let people whom I accept as friends read my updates. If this is checked, you
+                                WILL NOT be on the public timeline</small>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAAAMJjzlapzGitoTG"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <p>By default, we&rsquo;ll send you occasional owler news by email. It&rsquo;s extremely easy
+                            to unsubscribe at any time (one click in the email).</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th></th>
+                    <td>
+                        <p>By joining owler, you confirm that you are 16 years of age or older and accept the <a
+                                href="/tos" target="_blank">Terms of Service</a>. </p>
+                        <br>
+                        {{ registration_form.submit(class_="button", id_="button") }}
+
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+{% endblock %}
+
+{% block side %}
+    <div id="side">
+        {% include 'side_sign_in.html' %}
+    </div>
+{% endblock %}

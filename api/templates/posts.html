@@ -1,0 +1,30 @@
+
+{% if posts %}
+    <table class="doing" id="timeline" cellspacing="0">
+        <tbody>
+
+        {% for post in posts %}
+            <tr class="{{ 'odd' if loop.index is odd else 'even' }}" id="{{ post['_id'] }}">
+                <td class="thumb">
+                    <a href="/{{ post['screen_name'] }}">
+                        <img alt="{{ post['name'] }}"
+                             src="{{ post['profile_image_https'] if post['profile_image_https'] else '/static/images/default_profile_image_normal.gif' }}">
+                    </a>
+                </td>
+                <td class="td2">
+                    <strong>
+                        <a href="/{{ post['screen_name'] }}" title="{{ post['name'] }}">{{ post['screen_name'] }}</a>
+                    </strong> {{ post['content']|to_html|safe }}<span class="meta">
+												<a href="/{{ post['screen_name'] }}/statuses/{{ post._id }}">{{ date_to_text(post.timestamp) }}</a> from
+                {{ post.origin }}
+                    {% if me() %}
+                        {% include 'actions.html' %}
+                    {% endif %}
+											</span>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endif %}

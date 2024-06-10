@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}owler / home{% endblock %}
+{% block body_args %} class="account" id="profile"{% endblock %}
+{% block wrapper_content %}
+    <div>
+        {% include 'alert.html' %}
+
+        <form id="doingForm" action="" method="post">
+            {{ doing_form.csrf_token }}
+            {{ doing_form.enigma() }}
+            <div class="bar">
+                <table style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>
+                            <h3>What are you doing?</h3>
+
+                        </th>
+                        <th style="text-align:right"><span style="font-weight: normal;">Characters avaliable: <b
+                                id="characters">280</b></span></th>
+                    </tr>
+                    </thead>
+                </table>
+
+            </div>
+            <div class="info">
+                {{ doing_form.text_content() }}
+            </div>
+            <center>
+                <div class="submit">
+                    {{ doing_form.submit(class_="button") }}
+                </div>
+            </center>
+
+        </form>
+    </div>
+    {#    <ul class="tabMenu">#}
+    {#        <li>#}
+    {#            <a href="/">Archive</a>#}
+    {#        </li>#}
+    {#        <li class="active">#}
+    {#            <a href="/">Recent</a>#}
+    {#        </li>#}
+    {##}
+    {#    </ul>#}
+    <div class="tab">
+        <h2>What are we doing?</h2>
+        {% include 'posts.html' %}
+        {% if posts|length == 10 %}
+            <a href="?after={{ posts[9]._id }}">See More</a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block side %}
+    {% include 'side_profile.html' %}
+{% endblock %}
+
+{% block navigation %}
+    {% include 'user_navigation.html' %}
+{% endblock %}

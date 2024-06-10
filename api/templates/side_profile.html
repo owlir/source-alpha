@@ -1,0 +1,38 @@
+{% set user = me() %}
+{% if user %}
+    <div id="side">
+        <div class="msg"> Welcome, <a href="/{{ user.screen_name }}"><strong>{{ user.screen_name }}</strong></a>
+        </div>
+        {% if user.last_update %}
+            <ul class="about">
+                <li><b>Currently:</b> {{ user.last_update.content }}</li>
+
+            </ul>
+        {% endif %}
+        <ul>
+            <li>
+                Following: {{ user.following_count - 1 }}
+            </li>
+            <li>
+                Followers: {{ user.followers_count }}
+            </li>
+            <li>
+                <a href="/{{ user.screen_name }}/favorites">Favorites:</a> {{ user.favorites_count }}
+            </li>
+            <li>
+                Updates: {{ user.updates_count }}
+            </li>
+        </ul>
+        {% set following = user.following %}
+
+        {% include 'following.html' %}
+        <ul class="about">
+            <li>Send Notifications To:</li>
+            <li>
+                <input type="radio" id="radio" name="radio" value="radio" checked="checked">
+                <label for="css">web-only</label>
+            </li>
+        </ul>
+        <br>
+    </div>
+{% endif %}

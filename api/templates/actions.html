@@ -1,0 +1,17 @@
+{% if not disable_actions %}
+    <span id="status_actions_{{ post['_id'] }}" style="display: inline;">
+        <form action="" method="post" style="display: inline;">
+            {{ actions_form.csrf_token }}
+            {{ actions_form.post_id(value=post['_id']) }}
+            <button class="icon" type="submit" name="star" value="">
+                <img src="{% if post.favorite %}/static/images/dark_icon_star_full.gif{% else %}/static/images/dark_icon_star_empty.gif{% endif %}"
+                     alt="star" id="star">
+            </button>
+            {% if post.user_id == me()._id %}
+                <button class="icon" type="submit" name="trash" value="">
+                    <img src="/static/images/dark_icon_trash.gif" alt="trash" id="trash">
+                </button>
+            {% endif %}
+        </form>
+    </span>
+{% endif %}

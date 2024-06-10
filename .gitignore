@@ -1,0 +1,24 @@
+.vercel
+*.log
+*.pyc
+__pycache__
+
+# Environments 
+.env 
+.venv 
+env/
+ENV/ 
+env.bak/ 
+venv.bak/
+/pyvenv/
+/api/migration.py
+/api/static/
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/.gitignore
+/.idea/lwittr-flask-vercel-private.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+!/api/migration.py
+/api/test/
+/test/

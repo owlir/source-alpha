@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Language" content="en-us"/>
+    <meta property="og:title" content="{{ post['name'] }} (@{{ post['screen_name'] }})"/>
+    <meta name="description" content="{{ post['content'] }}">
+    <meta property="og:type" content="blog"/>
+    <meta property="og:image"
+          content="{{ post['profile_image_https'] if post['profile_image_https'] else '/static/images/default_profile_image_normal.gif' }}"/>
+    <meta property="og:description" content="{{ post['content'] }}"/>
+    <title>owler / {{ post['content'] }}</title>
+    <link href="/static/styles.css" media="screen, projection" rel="Stylesheet" type="text/css"/>
+</head>
+<body>
+
+<div id="container">
+    <div id="content">
+        <div class="wrapper">
+            <div id="permalink">
+                <div class="desc">
+                    <p> {{ post['content']|to_html|safe }} </p>
+                    <div class="metadata">
+                        <span class="meta"><a
+                                href="/{{ post['screen_name'] }}/statuses/{{ post._id }}">{{ date_to_text(post.timestamp) }}</a> from {{ post['origin'] }}
+                            {% if me() %}
+                                {% include 'actions.html' %}
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <h2 class="thumb">
+                    <a href="/{{ post.screen_name }}">
+                        <img alt="{{ post.screen_name }}"
+                             src="{{ post['profile_image_https'] if post['profile_image_https'] else '/static/images/default_profile_image_normal.gif' }}">
+                    </a>
+                    <a href="/{{ post.screen_name }}">{{ post.name }}</a>
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
