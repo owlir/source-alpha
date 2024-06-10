@@ -1,12 +1,14 @@
 # source-alpha
 Alpha source code, from November 3rd, 2023 (last alpha version I could find), patched with "new" stylesheet from November 11st. Email and captcha verification is disabled, but you can easily active it from the source code.
 
+
 ## Features
 - Login/Register
 - Profile Page
 - Follow/Unfollow
 - Following timeline, Public timeline and Top 10 Most Favorited
 - Settings are partially working, some features were WIP
+![sample](https://github.com/owlir/source-alpha/blob/main/samples/1.png)
 
 ## Contributions
 
